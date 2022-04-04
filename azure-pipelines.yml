@@ -21,7 +21,7 @@ steps:
 - task: SonarCloudPrepare@1
   inputs:
              SonarCloud: 'DevOps-CI-CD-Test'
-             organization: $(organization)
+             organization: karthiksm0545
              scannerMode: 'Other'
              extraProperties: | 
               # Additional properties that will be passed to the scanner, 
