@@ -18,6 +18,18 @@ variables:
   value: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
 
 steps:
+- task: SonarCloudPrepare@1
+  inputs:
+             SonarCloud: 'DevOps-CI-CD-Test'
+             organization: $(organization)
+             scannerMode: 'Other'
+             extraProperties: | 
+              # Additional properties that will be passed to the scanner, 
+              # Put one key=value per line, example: 
+              # sonar.exclusions=**/*.bin
+              sonar.projectKey=karthiksm0545_DevOps-CI-CD-Test
+              sonar.projectName=DevOps-CI-CD-Test
+- checkout: self
 
 - task: CacheBeta@0
   inputs:
@@ -51,5 +63,5 @@ steps:
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
     effectivePomSkip: true
-    sonarQubeRunAnalysis: false
+    sonarQubeRunAnalysis: true
     goals: 'clean install package deploy $(MAVEN_OPTS)  -DmuleDeploy -Dserver=$(server) -Denvironment=$(environment) -Dworker=$(worker) -DworkerType=$(workerType) -Dapp.runtime=$(app.runtime) -Dapp.name=$(app.name)'
