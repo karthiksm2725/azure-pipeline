@@ -20,17 +20,13 @@ variables:
 steps:
 - task: SonarCloudPrepare@1
   inputs:
-             SonarCloud: 'DevOps-CI-CD-Test'
-             organization: karthiksm0545
-             scannerMode: 'Other'
-             extraProperties: | 
-              # Additional properties that will be passed to the scanner, 
-              # Put one key=value per line, example: 
-              # sonar.exclusions=**/*.bin
-              sonar.projectKey=karthiksm0545_DevOps-CI-CD-Test
-              sonar.projectName=DevOps-CI-CD-Test
-- checkout: self
-
+    SonarCloud: 'SonarCloud'
+    organization: 'karthiksm0545'
+    scannerMode: 'Other'
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+- task: SonarCloudAnalyze@1
 - task: CacheBeta@0
   inputs:
     key: $(Build.SourcesDirectory)/pom.xml
